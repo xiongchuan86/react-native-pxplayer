@@ -10,6 +10,16 @@
 
 @interface PxPlayer : UIView
 
+
+typedef enum {
+    PLAYER_STATE_START,
+    PLAYER_STATE_BUFFERING,
+    PLAYER_STATE_PLAYING,
+    PLAYER_STATE_PAUSED,
+    PLAYER_STATE_STOPPED,
+    PLAYER_STATE_ERROR
+}playerState;
+
 @property (assign, nonatomic) px_instance_t* pxInstance;
 @property (nonatomic, readonly) int sourceWidth, sourceHeight;
 @property (nonatomic) int outputWidth, outputHeight;
@@ -19,6 +29,7 @@
 @property (nonatomic) BOOL canPlay;
 @property (nonatomic) BOOL playing;
 
+@property (nonatomic, retain) NSString *errorMsg;
 @property (nonatomic, retain) RCTEventDispatcher *_eventDispatcher;
 @property (nonatomic, retain) NSTimer *nextFrameTimer;
 

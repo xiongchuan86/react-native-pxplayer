@@ -37,6 +37,7 @@
     }
     _canPlay = NO;
     _paused  = NO;
+    _errorMsg = @"";
     return self;
 }
 
@@ -62,9 +63,11 @@
 
     BOOL canPlay = [self setDataSource:uri useTcp:useTcp];
     if(canPlay){
-        NSLog(@"uiview width=%i ,height=%i",width,height);
         [self setDisplay:self width:width height:height];
         [self start];
+    }else{
+        _errorMsg = @"无法播放";
+        [self playerStateChanged:PLAYER_STATE_ERROR];
     }
 }
 
@@ -80,6 +83,11 @@
         if(paused && _playing){
             [self pause];
         }
+    }
+    if(_paused){
+        [self playerStateChanged:PLAYER_STATE_PAUSED];
+    }else{
+        [self playerStateChanged:PLAYER_STATE_PLAYING];
     }
 }
 
@@ -109,6 +117,7 @@
                                                              selector:@selector(displayNextFrame:)
                                                              userInfo:nil
                                                               repeats:YES];
+        [self playerStateChanged:PLAYER_STATE_START];
     }
 }
 
@@ -119,6 +128,7 @@
         [_nextFrameTimer invalidate];
     _nextFrameTimer = nil;
     _playing = NO;
+    [self playerStateChanged:PLAYER_STATE_STOPPED];
 }
 
 -(void)pause
@@ -198,14 +208,70 @@
 }
 
 
+- (void)playerStateChanged:(playerState)state
+{
+    switch (state) {
+        case PLAYER_STATE_PAUSED:
+            _paused = YES;
+            //NSLog(@"VLCMediaPlayerStatePaused %i",VLCMediaPlayerStatePaused);
+            [self._eventDispatcher sendInputEventWithName:@"onVideoPaused"
+                                                body:@{
+                                                       @"target": self.reactTag
+                                                       }];
+            break;
+        case PLAYER_STATE_STOPPED:
+            //NSLog(@"VLCMediaPlayerStateStopped %i",VLCMediaPlayerStateStopped);
+            [self._eventDispatcher sendInputEventWithName:@"onVideoStopped"
+                                                body:@{
+                                                       @"target": self.reactTag
+                                                       }];
+            break;
+        case PLAYER_STATE_START:
+            _paused = NO;
+            [self._eventDispatcher sendInputEventWithName:@"onVideoStartPlay"
+                                                body:@{
+                                                       @"target": self.reactTag
+                                                       }];
+            break;
+        case PLAYER_STATE_BUFFERING:
+            _paused = NO;
+            [self._eventDispatcher sendInputEventWithName:@"onVideoBuffering"
+                                                body:@{
+                                                       @"target": self.reactTag
+                                                       }];
+            break;
+        case PLAYER_STATE_PLAYING:
+            _paused = NO;
+            [self._eventDispatcher sendInputEventWithName:@"onVideoPlaying"
+                                                body:@{
+                                                       @"target": self.reactTag
+                                                       }];
+            break;
+         case PLAYER_STATE_ERROR:
+            [self._eventDispatcher sendInputEventWithName:@"onVideoError"
+                                                body:@{
+                                                       @"target": self.reactTag,
+                                                       @"error":  self.errorMsg
+                                                       }];
+            [self _release];
+            break;
+        default:
+            //NSLog(@"state %i",state);
+            break;
+    }
+}
+
 #define LERP(A,B,C) ((A)*(1.0-C)+(B)*C)
 
 -(void)displayNextFrame:(NSTimer *)timer
 {
     if(_paused)return;
     if(px_stepFrame(_pxInstance)){
+        [self playerStateChanged:PLAYER_STATE_PLAYING];
         px_convertFrameToRGB(_pxInstance);
         _imageView.image = [self imageFromAVPicture:_pxInstance->picture width:outputWidth height:outputHeight];
+    }else{
+      [self playerStateChanged:PLAYER_STATE_BUFFERING];
     }
 }
 
@@ -213,6 +279,7 @@
 - (void)_release
 {
     if(_pxInstance){
+        [self stop];
         // Free scaler
         if(_pxInstance->img_convert_ctx)sws_freeContext(_pxInstance->img_convert_ctx);
 

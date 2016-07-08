@@ -20,7 +20,8 @@ export default class RtspPlayer extends Component {
     this.snapshot = this.snapshot.bind(this);
     this._assignRoot = this._assignRoot.bind(this);
     this._onError = this._onError.bind(this);
-    this._onProgress = this._onProgress.bind(this);
+    this._onStartPlay = this._onStartPlay.bind(this);
+    this._onBuffering = this._onBuffering.bind(this);
     this._onPlaying = this._onPlaying.bind(this);
     this._onStopped = this._onStopped.bind(this);
     this._onPaused = this._onPaused.bind(this);
@@ -38,32 +39,13 @@ export default class RtspPlayer extends Component {
     this._root = component;
   }
 
-  _onBuffering(event) {
-    if (this.props.onBuffering) {
-      this.props.onBuffering(event.nativeEvent);
-    }
-  }
-
   _onError(event) {
     if (this.props.onError) {
       this.props.onError(event.nativeEvent);
     }
   }
 
-  _onProgress(event) {
-    if (this.props.onProgress) {
-      this.props.onProgress(event.nativeEvent);
-    }
-  }
-
-  _onEnded(event) {
-    if (this.props.onEnded) {
-      this.props.onEnd(event.nativeEvent);
-    }
-  }
-
   _onStopped(event) {
-    this.setNativeProps({ paused: true });
     if (this.props.onStopped) {
       this.props.onStopped(event.nativeEvent);
     }
@@ -72,6 +54,18 @@ export default class RtspPlayer extends Component {
   _onPaused(event) {
     if (this.props.onPaused) {
       this.props.onPaused(event.nativeEvent);
+    }
+  }
+
+  _onStartPlay(event) {
+    if (this.props.onStartPlay) {
+      this.props.onStartPlay(event.nativeEvent);
+    }
+  }
+
+  _onBuffering(event) {
+    if (this.props.onBuffering) {
+      this.props.onBuffering(event.nativeEvent);
     }
   }
 
@@ -93,8 +87,8 @@ export default class RtspPlayer extends Component {
       style: [styles.base, nativeProps.style],
       source: source,
       onVideoError: this._onError,
-      onVideoProgress: this._onProgress,
-      onVideoEnded: this._onEnded,
+      onVideoStartPlay:this._onStartPlay,
+      onVideoBuffering:this._onBuffering,
       onVideoPlaying:this._onPlaying,
       onVideoPaused:this._onPaused,
       onVideoStopped:this._onStopped,
@@ -118,12 +112,11 @@ RtspPlayer.propTypes = {
   source: PropTypes.object,
 
   onError: PropTypes.func,
-  onProgress: PropTypes.func,
-  onEnded: PropTypes.func,
   onStopped: PropTypes.func,
+  onStartPlay: PropTypes.func,
   onPlaying: PropTypes.func,
+  onBuffering: PropTypes.func,
   onPaused: PropTypes.func,
-  onProgress: PropTypes.func,
 
   /* Required by react-native */
   scaleX: React.PropTypes.number,

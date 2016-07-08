@@ -18,11 +18,11 @@ RCT_EXPORT_MODULE();
 - (NSArray *)customDirectEventTypes
 {
   return @[
-    @"onVideoProgress",
+    @"onVideoStartPlay",
+    @"onVideoBuffering",
+    @"onVideoPlaying",
     @"onVideoPaused",
     @"onVideoStopped",
-    @"onVideoPlaying",
-    @"onVideoEnded",
     @"onVideoError"
   ];
 }
