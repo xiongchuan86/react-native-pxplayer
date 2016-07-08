@@ -1,0 +1,27 @@
+{
+  "name": "react-native-pxplayer",
+  "version": "0.1.4",
+  "description": "A <PxPlayer /> element for react-native,a rtsp player",
+  "main": "PxPlayer.js",
+  "license": "MIT",
+  "keywords": [
+    "pxplayer",
+    "video",
+    "player",
+    "rtsp"
+  ],
+  "author": {
+    "name": "xiongchuan",
+    "email": "xiongchuan86@vip.qq.com"
+  },
+  "homepage": "https://github.com/xiongchuan86/react-native-pxplayer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiongchuan86/react-native-pxplayer.git"
+  },
+  "devDependencies": {
+
+  },
+  "dependencies": {
+  }
+}
