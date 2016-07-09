@@ -28,6 +28,7 @@ typedef enum {
 @property (nonatomic) BOOL paused;
 @property (nonatomic) BOOL canPlay;
 @property (nonatomic) BOOL playing;
+@property (nonatomic) BOOL fullscreen;
 
 @property (nonatomic, retain) NSString *errorMsg;
 @property (nonatomic, retain) RCTEventDispatcher *_eventDispatcher;

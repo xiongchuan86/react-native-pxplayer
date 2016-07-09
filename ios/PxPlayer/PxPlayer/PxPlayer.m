@@ -38,6 +38,7 @@
     _canPlay = NO;
     _paused  = NO;
     _errorMsg = @"";
+    [self setContentMode:UIViewContentModeScaleAspectFill];
     return self;
 }
 
@@ -114,9 +115,9 @@
         _playing = YES;
         _nextFrameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/25
                                                                target:self
-                                                             selector:@selector(displayNextFrame:)
-                                                             userInfo:nil
-                                                              repeats:YES];
+                                                               selector:@selector(displayNextFrame:)
+                                                               userInfo:nil
+                                                               repeats:YES];
         [self playerStateChanged:PLAYER_STATE_START];
     }
 }
@@ -146,10 +147,30 @@
         [v removeFromSuperview];
     }
     _imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    [_imageView setContentMode:UIViewContentModeScaleAspectFill];
     [_videoView addSubview:_imageView];
     outputHeight = height;
     outputWidth  = width;
     px_setOutputSize(_pxInstance,width,height);
+}
+
+-(void)setFullscreen:(BOOL)isFull
+{
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    int width = (int)screenBounds.size.width;
+    int height = (int)screenBounds.size.height;
+    if(isFull && _fullscreen==NO){
+        _fullscreen = YES;
+        CGAffineTransform transform = CGAffineTransformMakeRotation(90 * M_PI/180.0);
+        [self setTransform:transform];
+        [_imageView setFrame:CGRectMake(0, 0, height, width)];
+    }else if(isFull == NO && _fullscreen == YES){
+        _fullscreen = NO;
+        CGAffineTransform transform = CGAffineTransformMakeRotation( 0);
+        [self setTransform:transform];
+        [_imageView setFrame:CGRectMake(0, 0, outputWidth, outputHeight)];
+    }
+    
 }
 
 
@@ -163,6 +184,16 @@
 {
     if(!_canPlay)return 0;
     return _pxInstance->pCodecCtx->height;
+}
+
+-(void)setOutputWidth:(int)value
+{
+    outputWidth = value;
+}
+
+-(void)setOutputHeight:(int)value
+{
+    outputHeight = value;
 }
 
 
@@ -266,13 +297,16 @@
 -(void)displayNextFrame:(NSTimer *)timer
 {
     if(_paused)return;
-    if(px_stepFrame(_pxInstance)){
-        [self playerStateChanged:PLAYER_STATE_PLAYING];
-        px_convertFrameToRGB(_pxInstance);
-        _imageView.image = [self imageFromAVPicture:_pxInstance->picture width:outputWidth height:outputHeight];
-    }else{
-      [self playerStateChanged:PLAYER_STATE_BUFFERING];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(px_stepFrame(_pxInstance)){
+            [self playerStateChanged:PLAYER_STATE_PLAYING];
+            px_convertFrameToRGB(_pxInstance);
+            _imageView.image = [self imageFromAVPicture:_pxInstance->picture width:outputWidth height:outputHeight];
+        }else{
+            [self playerStateChanged:PLAYER_STATE_BUFFERING];
+        }
+    });
+    
 }
 
 

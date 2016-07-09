@@ -225,10 +225,10 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../react-native/React/**",
 					"$(SRCROOT)/node_modules/react-native/React/**",
-					"$(SRCROOT)/../../frameworks/ffmpeg.pkg/inc",
-					"$(SRCROOT)/../../frameworks/tbox.pkg/inc/",
-					"$(SRCROOT)/../../frameworks/playerxx.pkg/inc/",
-					"$(SRCROOT)/../../frameworks/tbox.pkg/inc/iphoneos",
+					"$(SRCROOT)/../../../../frameworks/ffmpeg.pkg/inc",
+					"$(SRCROOT)/../../../../frameworks/tbox.pkg/inc/",
+					"$(SRCROOT)/../../../../frameworks/playerxx.pkg/inc/",
+					"$(SRCROOT)/../../../../frameworks/tbox.pkg/inc/iphoneos",
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
@@ -245,10 +245,10 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../react-native/React/**",
 					"$(SRCROOT)/node_modules/react-native/React/**",
-					"$(SRCROOT)/../../frameworks/ffmpeg.pkg/inc",
-					"$(SRCROOT)/../../frameworks/tbox.pkg/inc/",
-					"$(SRCROOT)/../../frameworks/playerxx.pkg/inc/",
-					"$(SRCROOT)/../../frameworks/tbox.pkg/inc/iphoneos",
+					"$(SRCROOT)/../../../../frameworks/ffmpeg.pkg/inc",
+					"$(SRCROOT)/../../../../frameworks/tbox.pkg/inc/",
+					"$(SRCROOT)/../../../../frameworks/playerxx.pkg/inc/",
+					"$(SRCROOT)/../../../../frameworks/tbox.pkg/inc/iphoneos",
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";

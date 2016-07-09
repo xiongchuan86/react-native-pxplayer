@@ -18,6 +18,7 @@ export default class RtspPlayer extends Component {
   constructor(props, context) {
     super(props, context);
     this.snapshot = this.snapshot.bind(this);
+    this.fullscreen = this.fullscreen.bind(this);
     this._assignRoot = this._assignRoot.bind(this);
     this._onError = this._onError.bind(this);
     this._onStartPlay = this._onStartPlay.bind(this);
@@ -33,6 +34,10 @@ export default class RtspPlayer extends Component {
 
   snapshot(path) {
     this.setNativeProps({ snapshotPath:  path});
+  }
+
+  fullscreen(isFull) {
+    this.setNativeProps({fullscreen:isFull});
   }
 
   _assignRoot(component) {
@@ -80,8 +85,6 @@ export default class RtspPlayer extends Component {
       source
     } = this.props;
     source.initOptions = source.initOptions || [];
-    //repeat the input media
-    source.initOptions.push('--input-repeat=1000');
     const nativeProps = Object.assign({}, this.props);
     Object.assign(nativeProps, {
       style: [styles.base, nativeProps.style],
@@ -106,6 +109,7 @@ RtspPlayer.propTypes = {
   /* Native only */
   snapshotPath: PropTypes.string,
   paused: PropTypes.bool,
+  fullscreen: PropTypes.bool,
 
 
   /* Wrapper component */
