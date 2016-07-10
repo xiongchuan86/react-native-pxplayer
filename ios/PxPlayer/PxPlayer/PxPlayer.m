@@ -17,6 +17,8 @@
 @synthesize outputWidth, outputHeight;
 
 @synthesize nextFrameTimer = _nextFrameTimer;
+
+@synthesize glView = _glView;
 ///////////////////
 
 - (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher
@@ -38,7 +40,9 @@
     _canPlay = NO;
     _paused  = NO;
     _errorMsg = @"";
+    _useGLView = NO;
     [self setContentMode:UIViewContentModeScaleAspectFill];
+
     return self;
 }
 
@@ -110,14 +114,15 @@
 -(void)start
 {
     if(!_canPlay)return;
-    if(_nextFrameTimer.isValid)return;
+    //if(_nextFrameTimer.isValid)return;
     if(_pxInstance){
         _playing = YES;
-        _nextFrameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/25
-                                                               target:self
-                                                               selector:@selector(displayNextFrame:)
-                                                               userInfo:nil
-                                                               repeats:YES];
+        [self displayNextFrame];
+//        _nextFrameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/25
+//                                                               target:self
+//                                                               selector:@selector(displayNextFrame:)
+//                                                               userInfo:nil
+//                                                               repeats:YES];
         [self playerStateChanged:PLAYER_STATE_START];
     }
 }
@@ -125,9 +130,9 @@
 -(void)stop
 {
     if(!_canPlay)return;
-    if(_nextFrameTimer.isValid)
-        [_nextFrameTimer invalidate];
-    _nextFrameTimer = nil;
+//    if(_nextFrameTimer.isValid)
+//        [_nextFrameTimer invalidate];
+//    _nextFrameTimer = nil;
     _playing = NO;
     [self playerStateChanged:PLAYER_STATE_STOPPED];
 }
@@ -141,17 +146,36 @@
 -(void)setDisplay:(UIView*)videoView width:(int)width height:(int)height
 {
     if(!_canPlay)return;
+    outputHeight = height;
+    outputWidth  = width;
+    
     _videoView = videoView;
     NSArray *viewsToRemove = [_videoView subviews];
     for (UIView *v in viewsToRemove) {
         [v removeFromSuperview];
     }
-    _imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    
+    if(_useGLView){
+        [self initGLView];
+    }else{
+        [self initImageView];
+    }
+    
+    px_setOutputSize(_pxInstance,width,height);
+}
+
+-(void)initGLView
+{
+    _glView = [[KNGLView alloc] initWithFrame:CGRectMake(0, 0, outputWidth, outputHeight)];
+    _glView.contentMode = UIViewContentModeScaleAspectFit;
+    [_videoView addSubview:_glView];//add opengl view
+}
+
+-(void)initImageView
+{
+    _imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, outputWidth, outputHeight)];
     [_imageView setContentMode:UIViewContentModeScaleAspectFill];
     [_videoView addSubview:_imageView];
-    outputHeight = height;
-    outputWidth  = width;
-    px_setOutputSize(_pxInstance,width,height);
 }
 
 -(void)setFullscreen:(BOOL)isFull
@@ -163,12 +187,21 @@
         _fullscreen = YES;
         CGAffineTransform transform = CGAffineTransformMakeRotation(90 * M_PI/180.0);
         [self setTransform:transform];
-        [_imageView setFrame:CGRectMake(0, 0, height, width)];
+        if(_useGLView){
+            [_glView setFrame:CGRectMake(0, 0, height, width)];
+        }else{
+            [_imageView setFrame:CGRectMake(0, 0, height, width)];
+        }
+        
     }else if(isFull == NO && _fullscreen == YES){
         _fullscreen = NO;
         CGAffineTransform transform = CGAffineTransformMakeRotation( 0);
         [self setTransform:transform];
-        [_imageView setFrame:CGRectMake(0, 0, outputWidth, outputHeight)];
+        if(_useGLView){
+            [_glView setFrame:CGRectMake(0, 0, outputWidth, outputHeight)];
+        }else{
+            [_imageView setFrame:CGRectMake(0, 0, outputWidth, outputHeight)];
+        }
     }
     
 }
@@ -294,19 +327,70 @@
 
 #define LERP(A,B,C) ((A)*(1.0-C)+(B)*C)
 
--(void)displayNextFrame:(NSTimer *)timer
+-(void)displayNextFrame
 {
     if(_paused)return;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(px_stepFrame(_pxInstance)){
-            [self playerStateChanged:PLAYER_STATE_PLAYING];
-            px_convertFrameToRGB(_pxInstance);
-            _imageView.image = [self imageFromAVPicture:_pxInstance->picture width:outputWidth height:outputHeight];
-        }else{
-            [self playerStateChanged:PLAYER_STATE_BUFFERING];
-        }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        @synchronized(_pxInstance){
+//            
+//        }
+        while(1){
+            if(_paused)break;
+            @autoreleasepool {
+                if( _pxInstance && px_stepFrame(_pxInstance)){
+                    [self playerStateChanged:PLAYER_STATE_PLAYING];
+                    if(_useGLView){
+                        //render frame for opengl
+                        NSDictionary* frameData = [self makeFrameData];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [_glView render:frameData];
+                            av_free_packet(&_pxInstance->packet);
+                        });
+                    }else{
+                        px_convertFrameToRGB(_pxInstance);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            _imageView.image = [self imageFromAVPicture:_pxInstance->picture width:outputWidth height:outputHeight];
+                            av_free_packet(&_pxInstance->packet);
+                        });
+                    }
+                    
+                }else{
+                    [self playerStateChanged:PLAYER_STATE_BUFFERING];
+                    break;
+                }
+            }
+        }//end while for read frame
+        //exit thread
     });
+}
+
+- (NSDictionary *)makeFrameData {
     
+    NSMutableDictionary* frameData = [NSMutableDictionary dictionary];
+    [frameData setObject:[NSNumber numberWithInt:_pxInstance->pCodecCtx->width] forKey:@"width"];
+    [frameData setObject:[NSNumber numberWithInt:_pxInstance->pCodecCtx->height] forKey:@"height"];
+    //NSLog(@"make framedata y width=%i,linesize=%i",_pxInstance->pCodecCtx->width,_pxInstance->pFrame->linesize[0]);
+    NSData* ydata = [self copYUVData:_pxInstance->pFrame->data[0] linesize:_pxInstance->pFrame->linesize[0] width:_pxInstance->pCodecCtx->width height:_pxInstance->pCodecCtx->height];
+    NSData* udata = [self copYUVData:_pxInstance->pFrame->data[1] linesize:_pxInstance->pFrame->linesize[1] width:_pxInstance->pCodecCtx->width/2 height:_pxInstance->pCodecCtx->height/2];
+    NSData* vdata = [self copYUVData:_pxInstance->pFrame->data[2] linesize:_pxInstance->pFrame->linesize[2] width:_pxInstance->pCodecCtx->width/2 height:_pxInstance->pCodecCtx->height/2];
+    [frameData setObject:ydata forKey:@"Y"];
+    [frameData setObject:udata forKey:@"U"];
+    [frameData setObject:vdata forKey:@"V"];
+    
+    return frameData;
+}
+
+- (NSData *)copYUVData:(UInt8 *)src linesize:(int)linesize width:(int)width height:(int)height {
+    
+    width = MIN(linesize, width);
+    NSMutableData *md = [NSMutableData dataWithLength: width * height];
+    Byte *dst = md.mutableBytes;
+    for (NSUInteger i = 0; i < height; ++i) {
+        memcpy(dst, src, width);
+        dst += width;
+        src += linesize;
+    }
+    return md;
 }
 
 

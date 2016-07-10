@@ -1,8 +1,7 @@
 #import "RCTView.h"
-
-
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "KNGLView.h"
 #include "playerxx.h"
 #include "tbox/tbox.h"
 
@@ -30,12 +29,15 @@ typedef enum {
 @property (nonatomic) BOOL playing;
 @property (nonatomic) BOOL fullscreen;
 
+@property (nonatomic) BOOL useGLView;
+
 @property (nonatomic, retain) NSString *errorMsg;
 @property (nonatomic, retain) RCTEventDispatcher *_eventDispatcher;
 @property (nonatomic, retain) NSTimer *nextFrameTimer;
 
 @property (nonatomic, retain) UIView *videoView;
 @property (nonatomic, retain) UIImageView *imageView;
+@property (retain, nonatomic) KNGLView* glView;
 
 -(BOOL)setDataSource:(NSString*)uri useTcp:(BOOL)useTcp;
 -(void)start;
