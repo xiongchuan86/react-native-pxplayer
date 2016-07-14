@@ -20,7 +20,6 @@
 		0C3753151D2BAC81005D73FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3753101D2BAC81005D73FE /* AppDelegate.m */; };
 		0C3753161D2BAC81005D73FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C3753111D2BAC81005D73FE /* Images.xcassets */; };
 		0C3753171D2BAC81005D73FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3753121D2BAC81005D73FE /* main.m */; };
-		0C37532C1D2BACCA005D73FE /* libPxPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C37532B1D2BACB8005D73FE /* libPxPlayer.a */; };
 		0C3753431D2BB3CC005D73FE /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C37533B1D2BB3CC005D73FE /* libavcodec.a */; };
 		0C3753441D2BB3CC005D73FE /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C37533C1D2BB3CC005D73FE /* libavdevice.a */; };
 		0C3753451D2BB3CC005D73FE /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C37533D1D2BB3CC005D73FE /* libavfilter.a */; };
@@ -34,8 +33,8 @@
 		0C3753501D2BB428005D73FE /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C37534F1D2BB428005D73FE /* libx264.a */; };
 		0C3753521D2BB45B005D73FE /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3753511D2BB45B005D73FE /* libbz2.tbd */; };
 		0C3753541D2BB464005D73FE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3753531D2BB464005D73FE /* libz.tbd */; };
-		0C965DFF1D0D4DAA0057679D /* RCTOrientation in Resources */ = {isa = PBXBuildFile; fileRef = 0C965DFE1D0D4DAA0057679D /* RCTOrientation */; };
 		0C965E081D0D7EB90057679D /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C965E071D0D7EA80057679D /* libRNFS.a */; };
+		0CD99FF31D3774A600A56D7A /* libPxPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CD99FF21D37749A00A56D7A /* libPxPlayer.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -102,19 +101,19 @@
 			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
 			remoteInfo = ART;
 		};
-		0C37532A1D2BACB8005D73FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C3753261D2BACB8005D73FE /* PxPlayer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0C3752B81D2BA73D005D73FE;
-			remoteInfo = PxPlayer;
-		};
 		0C965E061D0D7EA80057679D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0C965E021D0D7EA70057679D /* RNFS.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
 			remoteInfo = RNFS;
+		};
+		0CD99FF11D37749A00A56D7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0CD99FED1D37749A00A56D7A /* PxPlayer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0C3752B81D2BA73D005D73FE;
+			remoteInfo = PxPlayer;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -168,7 +167,6 @@
 		0C3753101D2BAC81005D73FE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0C3753111D2BAC81005D73FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0C3753121D2BAC81005D73FE /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0C3753261D2BACB8005D73FE /* PxPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PxPlayer.xcodeproj; path = "../node_modules/react-native-rtspplayer/ios/PxPlayer/PxPlayer.xcodeproj"; sourceTree = "<group>"; };
 		0C37533B1D2BB3CC005D73FE /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = ../frameworks/ffmpeg.pkg/lib/iphoneos/universal/libavcodec.a; sourceTree = "<group>"; };
 		0C37533C1D2BB3CC005D73FE /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavdevice.a; path = ../frameworks/ffmpeg.pkg/lib/iphoneos/universal/libavdevice.a; sourceTree = "<group>"; };
 		0C37533D1D2BB3CC005D73FE /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = ../frameworks/ffmpeg.pkg/lib/iphoneos/universal/libavfilter.a; sourceTree = "<group>"; };
@@ -182,8 +180,8 @@
 		0C37534F1D2BB428005D73FE /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libx264.a; path = ../frameworks/x264.pkg/lib/iphoneos/universal/libx264.a; sourceTree = "<group>"; };
 		0C3753511D2BB45B005D73FE /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		0C3753531D2BB464005D73FE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		0C965DFE1D0D4DAA0057679D /* RCTOrientation */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RCTOrientation; path = "../node_modules/react-native-orientation/RCTOrientation"; sourceTree = "<group>"; };
 		0C965E021D0D7EA70057679D /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
+		0CD99FED1D37749A00A56D7A /* PxPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PxPlayer.xcodeproj; path = "../node_modules/react-native-pxplayer/ios/PxPlayer/PxPlayer.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* rtspplayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rtspplayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,8 +230,8 @@
 				0C37534C1D2BB3F6005D73FE /* libplayerxx.a in Frameworks */,
 				0C3753491D2BB3CD005D73FE /* libswresample.a in Frameworks */,
 				0C37534A1D2BB3CD005D73FE /* libswscale.a in Frameworks */,
+				0CD99FF31D3774A600A56D7A /* libPxPlayer.a in Frameworks */,
 				0C965E081D0D7EB90057679D /* libRNFS.a in Frameworks */,
-				0C37532C1D2BACCA005D73FE /* libPxPlayer.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				1C866C7487394FCAB425504B /* libRNVectorIcons.a in Frameworks */,
 			);
@@ -298,18 +296,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0C3753271D2BACB8005D73FE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0C37532B1D2BACB8005D73FE /* libPxPlayer.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		0C965E031D0D7EA70057679D /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				0C965E071D0D7EA80057679D /* libRNFS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0CD99FEE1D37749A00A56D7A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0CD99FF21D37749A00A56D7A /* libPxPlayer.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -362,7 +360,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				0C3753261D2BACB8005D73FE /* PxPlayer.xcodeproj */,
+				0CD99FED1D37749A00A56D7A /* PxPlayer.xcodeproj */,
 				0C965E021D0D7EA70057679D /* RNFS.xcodeproj */,
 				0C2B979B1D094B47007E68B1 /* ART.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -404,7 +402,6 @@
 				0C3753401D2BB3CC005D73FE /* libpostproc.a */,
 				0C3753411D2BB3CC005D73FE /* libswresample.a */,
 				0C3753421D2BB3CC005D73FE /* libswscale.a */,
-				0C965DFE1D0D4DAA0057679D /* RCTOrientation */,
 				0C2B977E1D07FDD7007E68B1 /* libiconv.tbd */,
 				0C2B977C1D07FDC1007E68B1 /* VideoToolbox.framework */,
 				13B07FAE1A68108700A75B9A /* rtspplayer */,
@@ -486,8 +483,8 @@
 					ProjectRef = 0C2B979B1D094B47007E68B1 /* ART.xcodeproj */;
 				},
 				{
-					ProductGroup = 0C3753271D2BACB8005D73FE /* Products */;
-					ProjectRef = 0C3753261D2BACB8005D73FE /* PxPlayer.xcodeproj */;
+					ProductGroup = 0CD99FEE1D37749A00A56D7A /* Products */;
+					ProjectRef = 0CD99FED1D37749A00A56D7A /* PxPlayer.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -595,18 +592,18 @@
 			remoteRef = 0C2B979F1D094B47007E68B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0C37532B1D2BACB8005D73FE /* libPxPlayer.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPxPlayer.a;
-			remoteRef = 0C37532A1D2BACB8005D73FE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		0C965E071D0D7EA80057679D /* libRNFS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNFS.a;
 			remoteRef = 0C965E061D0D7EA80057679D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0CD99FF21D37749A00A56D7A /* libPxPlayer.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPxPlayer.a;
+			remoteRef = 0CD99FF11D37749A00A56D7A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
@@ -656,7 +653,6 @@
 				93B638B69D834147A91BDD93 /* FontAwesome.ttf in Resources */,
 				CD49F309841C4B9ABEDFDD6C /* Foundation.ttf in Resources */,
 				D9B018E21F514FAAB310A9DB /* Ionicons.ttf in Resources */,
-				0C965DFF1D0D4DAA0057679D /* RCTOrientation in Resources */,
 				0C3753131D2BAC81005D73FE /* Info.plist in Resources */,
 				0C3753161D2BAC81005D73FE /* Images.xcassets in Resources */,
 				403E1FEC1B7346559B3FA70E /* MaterialIcons.ttf in Resources */,
@@ -715,10 +711,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../node_modules/react-native-rtspplayer/frameworks/ffmpeg.pkg/lib/iphoneos/universal",
-					"$(SRCROOT)/../node_modules/react-native-rtspplayer/frameworks/playerxx.pkg/lib/release/iphoneos/universal",
-					"$(SRCROOT)/../node_modules/react-native-rtspplayer/frameworks/tbox.pkg/lib/release/iphoneos/universal",
-					"$(SRCROOT)/../node_modules/react-native-rtspplayer/frameworks/x264.pkg/lib/iphoneos/universal",
+					"$(SRCROOT)/../frameworks/ffmpeg.pkg/lib/iphoneos/universal",
+					"$(SRCROOT)/../frameworks/playerxx.pkg/lib/release/iphoneos/universal",
+					"$(SRCROOT)/../frameworks/tbox.pkg/lib/release/iphoneos/universal",
+					"$(SRCROOT)/../frameworks/x264.pkg/lib/iphoneos/universal",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -747,10 +743,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../node_modules/react-native-rtspplayer/frameworks/ffmpeg.pkg/lib/iphoneos/universal",
-					"$(SRCROOT)/../node_modules/react-native-rtspplayer/frameworks/playerxx.pkg/lib/release/iphoneos/universal",
-					"$(SRCROOT)/../node_modules/react-native-rtspplayer/frameworks/tbox.pkg/lib/release/iphoneos/universal",
-					"$(SRCROOT)/../node_modules/react-native-rtspplayer/frameworks/x264.pkg/lib/iphoneos/universal",
+					"$(SRCROOT)/../frameworks/ffmpeg.pkg/lib/iphoneos/universal",
+					"$(SRCROOT)/../frameworks/playerxx.pkg/lib/release/iphoneos/universal",
+					"$(SRCROOT)/../frameworks/tbox.pkg/lib/release/iphoneos/universal",
+					"$(SRCROOT)/../frameworks/x264.pkg/lib/iphoneos/universal",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (

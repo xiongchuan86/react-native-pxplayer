@@ -15,6 +15,7 @@ class rtspplayer extends Component {
     //const uri = 'http://cdn.goluk.cn/video/t1_2.mp4';
     const uri = 'rtsp://192.168.1.254/xxx.mp4';
     let simplevideo = this.renderSimpleVideo(uri);
+    //let simplevideo = null;
     let video       = null;//this.renderVideo(uri);
     return (
       <View>

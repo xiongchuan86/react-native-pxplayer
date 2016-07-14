@@ -1,6 +1,6 @@
 {
   "name": "react-native-pxplayer",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A <PxPlayer /> element for react-native,a rtsp player",
   "main": "PxPlayer.js",
   "license": "MIT",

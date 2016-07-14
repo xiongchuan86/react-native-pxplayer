@@ -7,7 +7,7 @@ import {
   Dimensions,
   TouchableOpacity
 } from 'react-native';
-import RtspPlayer from 'react-native-rtspplayer';
+import PxPlayer from 'react-native-pxplayer';
 import * as Progress from 'react-native-progress';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Bars } from 'react-native-loader';
@@ -62,7 +62,7 @@ export default class SimpleVideo extends Component {
     let actionButton = this.actionButton();
     return (
       <View style={styles.container}>
-        <RtspPlayer
+        <PxPlayer
         ref='player'
         paused={this.state.paused}
         style={[styles.vlcplayer,this.state.customStyle]}

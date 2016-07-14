@@ -1,9 +1,9 @@
 #import "RCTView.h"
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "KNGLView.h"
-#include "playerxx.h"
 #include "tbox/tbox.h"
+#import "RTSPPlayer.h"
+#import "Utilities.h"
 
 @class RCTEventDispatcher;
 
@@ -19,7 +19,6 @@ typedef enum {
     PLAYER_STATE_ERROR
 }playerState;
 
-@property (assign, nonatomic) px_instance_t* pxInstance;
 @property (nonatomic, readonly) int sourceWidth, sourceHeight;
 @property (nonatomic) int outputWidth, outputHeight;
 @property (nonatomic, readonly) double duration;
@@ -30,6 +29,7 @@ typedef enum {
 @property (nonatomic) BOOL fullscreen;
 
 @property (nonatomic) BOOL useGLView;
+@property (nonatomic) BOOL releaseInstance;
 
 @property (nonatomic, retain) NSString *errorMsg;
 @property (nonatomic, retain) RCTEventDispatcher *_eventDispatcher;
@@ -37,15 +37,16 @@ typedef enum {
 
 @property (nonatomic, retain) UIView *videoView;
 @property (nonatomic, retain) UIImageView *imageView;
-@property (retain, nonatomic) KNGLView* glView;
 
--(BOOL)setDataSource:(NSString*)uri useTcp:(BOOL)useTcp;
+@property (nonatomic, retain) RTSPPlayer *video;
+
+
+
 -(void)start;
 -(void)stop;
 -(void)pause;
 -(void)setDisplay:(UIView*)videoView width:(int)width height:(int)height;
 -(void)savePicture:(NSString*)path;
-
 - (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher NS_DESIGNATED_INITIALIZER;
 
 @end

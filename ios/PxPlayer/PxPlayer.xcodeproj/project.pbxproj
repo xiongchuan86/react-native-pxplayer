@@ -10,7 +10,9 @@
 		0C3752BC1D2BA73D005D73FE /* PxPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0C3752BB1D2BA73D005D73FE /* PxPlayer.h */; };
 		0C3752BE1D2BA73D005D73FE /* PxPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3752BD1D2BA73D005D73FE /* PxPlayer.m */; };
 		0C3752C61D2BA7C5005D73FE /* PxPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3752C41D2BA7C5005D73FE /* PxPlayerManager.m */; };
-		0CF9DEE31D311DD100265DCC /* KNGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF9DEE21D311DD100265DCC /* KNGLView.m */; };
+		0CD99FB31D37527900A56D7A /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD99FAE1D37527900A56D7A /* AudioStreamer.m */; };
+		0CD99FB41D37527900A56D7A /* RTSPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD99FB01D37527900A56D7A /* RTSPPlayer.m */; };
+		0CD99FB51D37527900A56D7A /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD99FB21D37527900A56D7A /* Utilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,8 +34,12 @@
 		0C3752BD1D2BA73D005D73FE /* PxPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PxPlayer.m; sourceTree = "<group>"; };
 		0C3752C41D2BA7C5005D73FE /* PxPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PxPlayerManager.m; sourceTree = "<group>"; };
 		0C3752C51D2BA7C5005D73FE /* PxPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PxPlayerManager.h; sourceTree = "<group>"; };
-		0CF9DEE11D311D9800265DCC /* KNGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KNGLView.h; sourceTree = "<group>"; };
-		0CF9DEE21D311DD100265DCC /* KNGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KNGLView.m; sourceTree = "<group>"; };
+		0CD99FAD1D37527900A56D7A /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioStreamer.h; path = FFMpegDecoder/AudioStreamer.h; sourceTree = "<group>"; };
+		0CD99FAE1D37527900A56D7A /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioStreamer.m; path = FFMpegDecoder/AudioStreamer.m; sourceTree = "<group>"; };
+		0CD99FAF1D37527900A56D7A /* RTSPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTSPPlayer.h; path = FFMpegDecoder/RTSPPlayer.h; sourceTree = "<group>"; };
+		0CD99FB01D37527900A56D7A /* RTSPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTSPPlayer.m; path = FFMpegDecoder/RTSPPlayer.m; sourceTree = "<group>"; };
+		0CD99FB11D37527900A56D7A /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = FFMpegDecoder/Utilities.h; sourceTree = "<group>"; };
+		0CD99FB21D37527900A56D7A /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utilities.m; path = FFMpegDecoder/Utilities.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +56,7 @@
 		0C3752AF1D2BA73D005D73FE = {
 			isa = PBXGroup;
 			children = (
-				0CF9DEE01D311D6B00265DCC /* GLRender */,
+				0CD99FAC1D37525800A56D7A /* FFMpegDecoder */,
 				0C3752BA1D2BA73D005D73FE /* PxPlayer */,
 				0C3752B91D2BA73D005D73FE /* Products */,
 			);
@@ -75,13 +81,17 @@
 			path = PxPlayer;
 			sourceTree = "<group>";
 		};
-		0CF9DEE01D311D6B00265DCC /* GLRender */ = {
+		0CD99FAC1D37525800A56D7A /* FFMpegDecoder */ = {
 			isa = PBXGroup;
 			children = (
-				0CF9DEE11D311D9800265DCC /* KNGLView.h */,
-				0CF9DEE21D311DD100265DCC /* KNGLView.m */,
+				0CD99FAD1D37527900A56D7A /* AudioStreamer.h */,
+				0CD99FAE1D37527900A56D7A /* AudioStreamer.m */,
+				0CD99FAF1D37527900A56D7A /* RTSPPlayer.h */,
+				0CD99FB01D37527900A56D7A /* RTSPPlayer.m */,
+				0CD99FB11D37527900A56D7A /* Utilities.h */,
+				0CD99FB21D37527900A56D7A /* Utilities.m */,
 			);
-			name = GLRender;
+			name = FFMpegDecoder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,8 +151,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C3752C61D2BA7C5005D73FE /* PxPlayerManager.m in Sources */,
-				0CF9DEE31D311DD100265DCC /* KNGLView.m in Sources */,
+				0CD99FB51D37527900A56D7A /* Utilities.m in Sources */,
 				0C3752BE1D2BA73D005D73FE /* PxPlayer.m in Sources */,
+				0CD99FB41D37527900A56D7A /* RTSPPlayer.m in Sources */,
+				0CD99FB31D37527900A56D7A /* AudioStreamer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +253,6 @@
 					"$(SRCROOT)/node_modules/react-native/React/**",
 					"$(SRCROOT)/../../../../frameworks/ffmpeg.pkg/inc",
 					"$(SRCROOT)/../../../../frameworks/tbox.pkg/inc/",
-					"$(SRCROOT)/../../../../frameworks/playerxx.pkg/inc/",
 					"$(SRCROOT)/../../../../frameworks/tbox.pkg/inc/iphoneos",
 				);
 				LIBRARY_SEARCH_PATHS = "";
@@ -261,7 +272,6 @@
 					"$(SRCROOT)/node_modules/react-native/React/**",
 					"$(SRCROOT)/../../../../frameworks/ffmpeg.pkg/inc",
 					"$(SRCROOT)/../../../../frameworks/tbox.pkg/inc/",
-					"$(SRCROOT)/../../../../frameworks/playerxx.pkg/inc/",
 					"$(SRCROOT)/../../../../frameworks/tbox.pkg/inc/iphoneos",
 				);
 				LIBRARY_SEARCH_PATHS = "";
